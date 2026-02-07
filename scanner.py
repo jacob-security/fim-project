@@ -31,7 +31,9 @@ def scan(target_path: str) -> list[tuple]:
 
     return file_list
 
+
 def hash_file(target_path: str) -> tuple:
+    # return tuple with (hash, target_path)
     try:
         if os.path.isfile(target_path):
             return (calculate_sha256(target_path), target_path)
