@@ -1,0 +1,8 @@
+# Ignore the databsse file
+*.db
+
+# Ignore the python cace
+__pycache__/
+.pytest_cache/
+# Ignore test directory
+test_directory/
