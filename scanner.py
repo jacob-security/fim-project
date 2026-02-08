@@ -25,7 +25,7 @@ def scan(target_path: str) -> list[tuple]:
                     sha_sum = calculate_sha256(full_path)
                     # check file actually hashed
                     if sha_sum:
-                        file_list.append((sha_sum, full_path))
+                        file_list.append((full_path, sha_sum))
                 except (PermissionError, OSError) as e:
                     print(f"Skipping {full_path}: {e}")
 
