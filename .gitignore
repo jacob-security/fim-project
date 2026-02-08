@@ -4,5 +4,9 @@
 # Ignore the python cace
 __pycache__/
 .pytest_cache/
+
 # Ignore test directory
 test_directory/
+
+# Ignore swp files
+*.swp
