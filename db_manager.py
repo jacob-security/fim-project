@@ -85,7 +85,6 @@ def populate_current_scan(hash_list) -> None:
                 INSERT INTO current_scan (path, hash)
                 VALUES (?, ?)
             '''
-
             cursor.executemany(query, hash_list)
             connection.commit()
         except Exception as e:
@@ -145,14 +144,32 @@ def detect_modifications() -> list:
         except Exception as e:
             print(f"[-] Error detecting modifications {e}")
 
-def main():
-    test_path = "./test_directory" 
-    #initialize_db()
-    hash_list = scan(test_path)
-    #populate_baseline(hash_list)
-    populate_current_scan(hash_list)
-    populate_paths_watched(test_path)
-    detect_modifications()
+def retrieve_paths_watched() -> list:
+    with sqlite3.connect(DB_PATH) as connection:
+        try:
+            cursor = connection.cursor()
+            query = '''
+                SELECT path FROM paths_watched
+            '''
+
+            cursor.execute(query)
+            watched_paths_list = [row[0] for row in cursor.fetchall()]
+            return watched_paths_list
+        except Exception as e:
+            print(f"[-] Error retrieving watched paths list: {e}")
+            return 0
+            
+
+#def main():
+#    test_path = "./test_directory" 
+#    #initialize_db()
+#    hash_list = scan(test_path)
+#    #populate_baseline(hash_list)
+#    populate_current_scan(hash_list)
+#    populate_paths_watched(test_path)
+#    detect_modifications()
+
+
 
 if __name__ == "__main__":
     main()
